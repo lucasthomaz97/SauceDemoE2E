@@ -18,4 +18,28 @@ export class ProductsPage {
     get logoutButton(): Locator {
         return this.page.locator('[data-test="logout-sidebar-link"]');
     }
+
+    get productSortSelect(): Locator {
+        return this.page.locator('[data-test="product-sort-container"]');
+    }
+
+    get shoppingCartLink(): Locator {
+        return this.page.locator('[data-test="shopping-cart-link"]');
+    }
+
+    get menuCloseButton(): Locator {
+        return this.page.getByRole('button', { name: 'Close Menu' });
+    }
+
+    getProductItem(i: number): Locator {
+        return this.page.locator('[data-test="inventory-item-description"]').nth(i);
+    }
+
+    get productNames(): Locator {
+        return this.page.locator('[data-test="inventory-item-name"]');
+    }
+
+    get productPrices(): Locator {
+        return this.page.locator('[data-test="inventory-item-price"]');
+    }
 }

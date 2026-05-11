@@ -1,10 +1,7 @@
 {
   "name": "sauce_e2e_test",
   "version": "1.0.0",
-  "description": "",
-  "directories": {
-    "test": "tests"
-  },
+  "description": "E2E automated tests for SauceDemo using Playwright",
   "scripts": {
     "test": "npx playwright test"
   },

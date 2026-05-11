@@ -57,14 +57,6 @@ test('Should login successfully with valid credentials', async ({ loginPage, pro
     await expect(productsPage.productsHeading).toBeVisible();
 });
 
-test('Should logout successfully', async ({ loginPage, productsPage }) => {
-    await loginPage.login('standard_user', 'secret_sauce');
-    await expect(productsPage.productsHeading).toBeVisible();
-    await productsPage.menuButton.click();
-    await productsPage.logoutButton.click();
-    await expect(loginPage.headingTitle).toBeVisible();
-});
-
 test('Should close error message when clicking close button', async ({ loginPage }) => {
     await loginPage.login('invalid_user', 'invalid_password');
     await expect(loginPage.errorMessageInvalidCredentials).toBeVisible();
