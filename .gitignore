@@ -1,5 +1,4 @@
 node_modules/
-package-lock.json
 test-results/
 playwright-report/
 playwright/.cache/
@@ -7,3 +6,7 @@ playwright/.cache/
 .env.local
 *.log
 .DS_Store
+blob-report/
+
+# Playwright
+/playwright/.auth/

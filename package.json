@@ -2,12 +2,11 @@
   "name": "sauce_e2e_test",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "directories": {
     "test": "tests"
   },
   "scripts": {
-    "test": "npm test"
+    "test": "npx playwright test"
   },
   "repository": {
     "type": "git",
@@ -29,5 +28,9 @@
   "homepage": "https://github.com/lucasthomaz97/SauceDemoE2E#readme",
   "dependencies": {
     "playwright": "^1.59.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.59.1",
+    "@types/node": "^25.6.2"
   }
 }
