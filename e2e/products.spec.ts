@@ -14,6 +14,9 @@ test('Should display menu button on products page', async ({ loginPage, products
 test('Should Display Menu options when clicking menu button', async ({ loginPage, productsPage }) => {
     await loginPage.login('standard_user', 'secret_sauce');
     await productsPage.menuButton.click();
+    await expect(productsPage.menuCloseButton).toBeVisible();
+    await expect(productsPage.allItemsButton).toBeVisible();
+    await expect(productsPage.aboutButton).toBeVisible();
     await expect(productsPage.logoutButton).toBeVisible();
 });
 
@@ -62,7 +65,7 @@ test('Should display six products on products page', async ({ loginPage, product
     }
 });
 
-test('Should order z to a correctly', async ({ loginPage, productsPage }) => {
+test('Should order Z to A correctly', async ({ loginPage, productsPage }) => {
     await loginPage.login('standard_user', 'secret_sauce');
     await productsPage.productSortSelect.selectOption('za');
 
@@ -71,7 +74,7 @@ test('Should order z to a correctly', async ({ loginPage, productsPage }) => {
     expect(products).toEqual(sortedProducts);
 });
 
-test('Should order a to z correctly', async ({ loginPage, productsPage }) => {
+test('Should order A to Z correctly', async ({ loginPage, productsPage }) => {
     await loginPage.login('standard_user', 'secret_sauce');
     await productsPage.productSortSelect.selectOption('az');
 
@@ -99,3 +102,35 @@ test('Should order by price high to low correctly', async ({ loginPage, products
     const sortedPrices = [...pricesAsNumbers].sort((a, b) => b - a);
     expect(pricesAsNumbers).toEqual(sortedPrices);
 });
+
+for (let i = 0; i < 6; i++) {
+    test(`Should display product name for product ${i + 1}`, async ({ loginPage, productsPage }) => {
+        await loginPage.login('standard_user', 'secret_sauce');
+        await expect(productsPage.getProductItem(i)).toBeVisible();
+        await expect(productsPage.getProductName(i)).toBeVisible();
+    });
+
+    test(`Should display product image for product ${i + 1}`, async ({ loginPage, productsPage }) => {
+        await loginPage.login('standard_user', 'secret_sauce');
+        await expect(productsPage.getProductItem(i)).toBeVisible();
+        await expect(productsPage.getProductImage(i)).toBeVisible();
+    });
+
+    test(`Should display product price for product ${i + 1}`, async ({ loginPage, productsPage }) => {
+        await loginPage.login('standard_user', 'secret_sauce');
+        await expect(productsPage.getProductItem(i)).toBeVisible();
+        await expect(productsPage.getProductPrice(i)).toBeVisible();
+    });
+
+    test(`Should display product description for product ${i + 1}`, async ({ loginPage, productsPage }) => {
+        await loginPage.login('standard_user', 'secret_sauce');
+        await expect(productsPage.getProductItem(i)).toBeVisible();
+        await expect(productsPage.getProductDescription(i)).toBeVisible();
+    });
+
+    test(`Should display add to cart button for product ${i + 1}`, async ({ loginPage, productsPage }) => {
+        await loginPage.login('standard_user', 'secret_sauce');
+        await expect(productsPage.getProductItem(i)).toBeVisible();
+        await expect(productsPage.getProductAddToCartButton(i)).toBeVisible();
+    });
+}
