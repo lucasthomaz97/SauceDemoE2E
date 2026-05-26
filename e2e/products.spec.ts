@@ -3,7 +3,7 @@ import { test } from '../fixtures/index';
 
 test('Should display products page title after successful login', async ({ loginPage, productsPage }) => {
     await loginPage.login('standard_user', 'secret_sauce');
-    await expect(productsPage.productsHeading).toBeVisible();
+    await productsPage.expectProductsPage();
 });
 
 test('Should display menu button on products page', async ({ loginPage, productsPage }) => {
@@ -103,6 +103,26 @@ test('Should order by price high to low correctly', async ({ loginPage, products
     expect(pricesAsNumbers).toEqual(sortedPrices);
 });
 
+test('Should change state of add to cart button to remove after clicking it', async ({ loginPage, productsPage }) => {
+    await loginPage.login('standard_user', 'secret_sauce');
+    await productsPage.getProductAddToCartButton(0).click();
+    await expect(productsPage.getProductRemoveButton(0)).toBeVisible();
+});
+
+test('Should display shopping cart with zero items when no products are added to cart', async ({ loginPage, productsPage }) => {
+    await loginPage.login('standard_user', 'secret_sauce');
+    await expect(productsPage.shoppingCartBadge).not.toBeVisible();
+});
+
+test('Should remove product from cart and update shopping cart badge accordingly', async ({ loginPage, productsPage }) => {
+    await loginPage.login('standard_user', 'secret_sauce');
+    await productsPage.getProductAddToCartButton(0).click();
+    await expect(productsPage.shoppingCartBadge).toBeVisible();
+    await expect(productsPage.shoppingCartBadge).toHaveText('1');
+    await productsPage.getProductRemoveButton(0).click();
+    await expect(productsPage.shoppingCartBadge).not.toBeVisible();
+});
+
 for (let i = 0; i < 6; i++) {
     test(`Should display product name for product ${i + 1}`, async ({ loginPage, productsPage }) => {
         await loginPage.login('standard_user', 'secret_sauce');
@@ -132,5 +152,21 @@ for (let i = 0; i < 6; i++) {
         await loginPage.login('standard_user', 'secret_sauce');
         await expect(productsPage.getProductItem(i)).toBeVisible();
         await expect(productsPage.getProductAddToCartButton(i)).toBeVisible();
+    });
+
+    test(`Should display remove button for product ${i + 1} after adding it to cart`, async ({ loginPage, productsPage }) => {
+        await loginPage.login('standard_user', 'secret_sauce');
+        await expect(productsPage.getProductItem(i)).toBeVisible();
+        await productsPage.getProductAddToCartButton(i).click();
+        await expect(productsPage.getProductRemoveButton(i)).toBeVisible();
+    });
+
+    test(`Should display shopping cart with ${i + 1} items`, async ({ loginPage, productsPage }) => {
+        await loginPage.login('standard_user', 'secret_sauce');
+        for (let j = 0; j <= i; j++) {
+            await productsPage.getProductAddToCartButton(j).click();
+            await expect(productsPage.shoppingCartBadge).toBeVisible();
+            await expect(productsPage.shoppingCartBadge).toHaveText(`${j + 1}`);
+        }
     });
 }

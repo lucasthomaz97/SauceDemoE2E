@@ -1,4 +1,4 @@
-import { Page, Locator } from '@playwright/test';
+import { Page, Locator, expect } from '@playwright/test';
 
 export class ProductsPage {
     private page: Page;
@@ -8,7 +8,7 @@ export class ProductsPage {
     }
 
     get productsHeading(): Locator {
-        return this.page.locator('[data-test="secondary-header"]');
+        return this.page.locator('[data-test="title"]');
     }
 
     get menuButton(): Locator {
@@ -33,6 +33,10 @@ export class ProductsPage {
 
     get shoppingCartLink(): Locator {
         return this.page.locator('[data-test="shopping-cart-link"]');
+    }
+
+    get shoppingCartBadge(): Locator {
+        return this.page.locator('[data-test="shopping-cart-badge"]');
     }
 
     get menuCloseButton(): Locator {
@@ -69,5 +73,23 @@ export class ProductsPage {
 
     getProductAddToCartButton(i: number): Locator {
         return this.getProductItem(i).getByText('Add to cart');
+    }
+
+    getProductRemoveButton(i: number): Locator {
+        return this.getProductItem(i).getByText('Remove');
+    }
+
+    async expectProductsPage() {
+        await expect(this.productsHeading).toHaveText('Products');
+        await expect(this.menuButton).toBeVisible();
+        await expect(this.productSortSelect).toBeVisible();
+        await expect(this.shoppingCartLink).toBeVisible();
+        for (let i = 0; i < 6; i++) {
+            await expect(this.getProductItem(i)).toBeVisible();
+            await expect(this.getProductName(i)).toBeVisible();
+            await expect(this.getProductImage(i)).toBeVisible();
+            await expect(this.getProductPrice(i)).toBeVisible();
+            await expect(this.getProductDescription(i)).toBeVisible();
+        }
     }
 }

@@ -1,10 +1,12 @@
 import { test as base } from '@playwright/test';
 import { LoginPage } from '../page_objects/login_page';
 import { ProductsPage } from '../page_objects/products_page';
+import { CheckoutPage } from '../page_objects/checkout_page';
 
 export interface AuthFixtures {
     loginPage: LoginPage;
     productsPage: ProductsPage;
+    checkoutPage: CheckoutPage;
 }
 
 export const test = base.extend<AuthFixtures>({
@@ -17,4 +19,8 @@ export const test = base.extend<AuthFixtures>({
         const productsPage = new ProductsPage(page);
         await use(productsPage);
     },
+    checkoutPage: async ({ page }, use) => {
+        const checkoutPage = new CheckoutPage(page);
+        await use(checkoutPage);
+    }
 });
