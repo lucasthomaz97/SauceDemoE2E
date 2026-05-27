@@ -74,9 +74,11 @@ for (let i = 0; i < 6; i++) {
     });
 
     test(`Should display all the ${i + 1} products in overview page after adding them to cart and filling Your Information form`, async ({ loginPage, productsPage, checkoutPage }) => {
-        const firstName = NameFactory.createFirstName();
-        const lastName = NameFactory.createLastName();
-        const postalCode = PostalCodeFactory.createPostalCode();
+        const nameFactory = new NameFactory();
+        const postalCodeFactory = new PostalCodeFactory();
+        const firstName = nameFactory.createFirstName();
+        const lastName = nameFactory.createLastName();
+        const postalCode = postalCodeFactory.createPostalCode();
         
         await loginPage.login('standard_user', 'secret_sauce');
         for (let j = 0; j <= i; j++) {
@@ -125,7 +127,8 @@ test('Should display error message when trying to continue with empty First Name
 });
 
 test('Should display error message when trying to continue with empty Last Name on Your Information page', async ({ loginPage, productsPage, checkoutPage }) => {
-    const firstName = NameFactory.createFirstName();
+    const nameFactory = new NameFactory();
+    const firstName = nameFactory.createFirstName();
     
     await loginPage.login('standard_user', 'secret_sauce');
     await productsPage.getProductAddToCartButton(0).click();
@@ -137,8 +140,9 @@ test('Should display error message when trying to continue with empty Last Name 
 });
 
 test('Should display error message when trying to continue with empty Postal Code on Your Information page', async ({ loginPage, productsPage, checkoutPage }) => {
-    const firstName = NameFactory.createFirstName();
-    const lastName = NameFactory.createLastName();
+    const nameFactory = new NameFactory();
+    const firstName = nameFactory.createFirstName();
+    const lastName = nameFactory.createLastName();
     
     await loginPage.login('standard_user', 'secret_sauce');
     await productsPage.getProductAddToCartButton(0).click();
@@ -151,9 +155,11 @@ test('Should display error message when trying to continue with empty Postal Cod
 });
 
 test('Should fill Your Information form and continue to Overview page', async ({ loginPage, productsPage, checkoutPage }) => {
-    const firstName = NameFactory.createFirstName();
-    const lastName = NameFactory.createLastName();
-    const postalCode = PostalCodeFactory.createPostalCode();
+    const nameFactory = new NameFactory();
+    const postalCodeFactory = new PostalCodeFactory();
+    const firstName = nameFactory.createFirstName();
+    const lastName = nameFactory.createLastName();
+    const postalCode = postalCodeFactory.createPostalCode();
 
     await loginPage.login('standard_user', 'secret_sauce');
     await productsPage.getProductAddToCartButton(0).click();
@@ -167,9 +173,11 @@ test('Should fill Your Information form and continue to Overview page', async ({
 });
 
 test('Should return to Products page when clicking cancel button on Overview page', async ({ loginPage, productsPage, checkoutPage }) => {
-    const firstName = NameFactory.createFirstName();
-    const lastName = NameFactory.createLastName();
-    const postalCode = PostalCodeFactory.createPostalCode();
+    const nameFactory = new NameFactory();
+    const postalCodeFactory = new PostalCodeFactory();
+    const firstName = nameFactory.createFirstName();
+    const lastName = nameFactory.createLastName();
+    const postalCode = postalCodeFactory.createPostalCode();
     
     await loginPage.login('standard_user', 'secret_sauce');
     await productsPage.getProductAddToCartButton(0).click();
@@ -185,9 +193,11 @@ test('Should return to Products page when clicking cancel button on Overview pag
 });
 
 test('Should finish checkout and display checkout complete page', async ({ loginPage, productsPage, checkoutPage }) => {
-    const firstName = NameFactory.createFirstName();
-    const lastName = NameFactory.createLastName();
-    const postalCode = PostalCodeFactory.createPostalCode();
+    const nameFactory = new NameFactory();
+    const postalCodeFactory = new PostalCodeFactory();
+    const firstName = nameFactory.createFirstName();
+    const lastName = nameFactory.createLastName();
+    const postalCode = postalCodeFactory.createPostalCode();
 
     await loginPage.login('standard_user', 'secret_sauce');
     await productsPage.getProductAddToCartButton(0).click();
@@ -203,9 +213,11 @@ test('Should finish checkout and display checkout complete page', async ({ login
 });
 
 test('Should return to products page when clicking back home button on checkout complete page', async ({ loginPage, productsPage, checkoutPage }) => {
-    const firstName = NameFactory.createFirstName();
-    const lastName = NameFactory.createLastName();
-    const postalCode = PostalCodeFactory.createPostalCode();
+    const nameFactory = new NameFactory();
+    const postalCodeFactory = new PostalCodeFactory();
+    const firstName = nameFactory.createFirstName();
+    const lastName = nameFactory.createLastName();
+    const postalCode = postalCodeFactory.createPostalCode();
 
     await loginPage.login('standard_user', 'secret_sauce');
     await productsPage.getProductAddToCartButton(0).click();

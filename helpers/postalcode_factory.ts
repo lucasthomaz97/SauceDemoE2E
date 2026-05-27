@@ -1,13 +1,13 @@
 const { faker } = require('@faker-js/faker');
 
 export class PostalCodeFactory {
+  private faker: any;
+
   constructor() {
-    if (faker.seedValue === undefined) {
-        faker.seed(123);
-    }
+    this.faker = faker.newInstance({    seed: 123    });
   }
 
-  static createPostalCode(): string {
-    return faker.location.zipCode({format: '#####-###'});
+  createPostalCode(): string {
+    return this.faker.location.zipCode({format: '#####-###'});
   }
 }

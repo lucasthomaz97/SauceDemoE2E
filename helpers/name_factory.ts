@@ -1,17 +1,17 @@
 const { faker } = require('@faker-js/faker');
 
 export class NameFactory {
+  private faker: any;
+
   constructor() {
-    if (faker.seedValue === undefined) {
-        faker.seed(123);
-    }
+    this.faker = faker.newInstance({    seed: 123    });
   }
 
-  static createFirstName(): string {
-    return faker.person.firstName();
+  createFirstName(): string {
+    return this.faker.person.firstName();
   }
 
-  static createLastName(): string {
-    return faker.person.lastName();
+  createLastName(): string {
+    return this.faker.person.lastName();
   }
 }
