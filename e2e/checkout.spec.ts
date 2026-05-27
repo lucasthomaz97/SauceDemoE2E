@@ -1,5 +1,7 @@
 import { expect } from '@playwright/test';
 import { test } from '../fixtures/index';
+import { NameFactory } from '../helpers/name_factory';
+import { PostalCodeFactory } from '../helpers/postalcode_factory';
 
 test('Should display checkout page after navigating to checkout page', async ({ loginPage, productsPage, checkoutPage }) => {
     await loginPage.login('standard_user', 'secret_sauce');
@@ -72,6 +74,10 @@ for (let i = 0; i < 6; i++) {
     });
 
     test(`Should display all the ${i + 1} products in overview page after adding them to cart and filling Your Information form`, async ({ loginPage, productsPage, checkoutPage }) => {
+        const firstName = NameFactory.createFirstName();
+        const lastName = NameFactory.createLastName();
+        const postalCode = PostalCodeFactory.createPostalCode();
+        
         await loginPage.login('standard_user', 'secret_sauce');
         for (let j = 0; j <= i; j++) {
             await productsPage.getProductAddToCartButton(j).click();
@@ -81,9 +87,9 @@ for (let i = 0; i < 6; i++) {
         await productsPage.shoppingCartLink.click();
         await checkoutPage.checkoutButton.click();
         await checkoutPage.expectYourInformationPage();
-        await checkoutPage.yourInformationFirstNameInput.fill('Test');
-        await checkoutPage.yourInformationLastNameInput.fill('User');
-        await checkoutPage.yourInformationPostalCodeInput.fill('12345');
+        await checkoutPage.yourInformationFirstNameInput.fill(firstName);
+        await checkoutPage.yourInformationLastNameInput.fill(lastName);
+        await checkoutPage.yourInformationPostalCodeInput.fill(postalCode);
         await checkoutPage.yourInformationContinueButton.click();
         await checkoutPage.expectOverviewPage(i + 1);
     });
@@ -119,46 +125,59 @@ test('Should display error message when trying to continue with empty First Name
 });
 
 test('Should display error message when trying to continue with empty Last Name on Your Information page', async ({ loginPage, productsPage, checkoutPage }) => {
+    const firstName = NameFactory.createFirstName();
+    
     await loginPage.login('standard_user', 'secret_sauce');
     await productsPage.getProductAddToCartButton(0).click();
     await productsPage.shoppingCartLink.click();
     await checkoutPage.checkoutButton.click();
-    await checkoutPage.yourInformationFirstNameInput.fill('Test');
+    await checkoutPage.yourInformationFirstNameInput.fill(firstName);
     await checkoutPage.yourInformationContinueButton.click();
     await expect(checkoutPage.yourInformationErrorMessage).toHaveText('Error: Last Name is required');
 });
 
 test('Should display error message when trying to continue with empty Postal Code on Your Information page', async ({ loginPage, productsPage, checkoutPage }) => {
+    const firstName = NameFactory.createFirstName();
+    const lastName = NameFactory.createLastName();
+    
     await loginPage.login('standard_user', 'secret_sauce');
     await productsPage.getProductAddToCartButton(0).click();
     await productsPage.shoppingCartLink.click();
     await checkoutPage.checkoutButton.click();
-    await checkoutPage.yourInformationFirstNameInput.fill('Test');
-    await checkoutPage.yourInformationLastNameInput.fill('User');
+    await checkoutPage.yourInformationFirstNameInput.fill(firstName);
+    await checkoutPage.yourInformationLastNameInput.fill(lastName);
     await checkoutPage.yourInformationContinueButton.click();
     await expect(checkoutPage.yourInformationErrorMessage).toHaveText('Error: Postal Code is required');
 });
 
 test('Should fill Your Information form and continue to Overview page', async ({ loginPage, productsPage, checkoutPage }) => {
+    const firstName = NameFactory.createFirstName();
+    const lastName = NameFactory.createLastName();
+    const postalCode = PostalCodeFactory.createPostalCode();
+
     await loginPage.login('standard_user', 'secret_sauce');
     await productsPage.getProductAddToCartButton(0).click();
     await productsPage.shoppingCartLink.click();
     await checkoutPage.checkoutButton.click();
-    await checkoutPage.yourInformationFirstNameInput.fill('Test');
-    await checkoutPage.yourInformationLastNameInput.fill('User');
-    await checkoutPage.yourInformationPostalCodeInput.fill('12345');
+    await checkoutPage.yourInformationFirstNameInput.fill(firstName);
+    await checkoutPage.yourInformationLastNameInput.fill(lastName);
+    await checkoutPage.yourInformationPostalCodeInput.fill(postalCode);
     await checkoutPage.yourInformationContinueButton.click();
     await checkoutPage.expectOverviewPage(1);
 });
 
 test('Should return to Products page when clicking cancel button on Overview page', async ({ loginPage, productsPage, checkoutPage }) => {
+    const firstName = NameFactory.createFirstName();
+    const lastName = NameFactory.createLastName();
+    const postalCode = PostalCodeFactory.createPostalCode();
+    
     await loginPage.login('standard_user', 'secret_sauce');
     await productsPage.getProductAddToCartButton(0).click();
     await productsPage.shoppingCartLink.click();
     await checkoutPage.checkoutButton.click();
-    await checkoutPage.yourInformationFirstNameInput.fill('Test');
-    await checkoutPage.yourInformationLastNameInput.fill('User');
-    await checkoutPage.yourInformationPostalCodeInput.fill('12345');
+    await checkoutPage.yourInformationFirstNameInput.fill(firstName);
+    await checkoutPage.yourInformationLastNameInput.fill(lastName);
+    await checkoutPage.yourInformationPostalCodeInput.fill(postalCode);
     await checkoutPage.yourInformationContinueButton.click();
     await checkoutPage.expectOverviewPage(1);
     await checkoutPage.overviewCancelButton.click();
@@ -166,13 +185,17 @@ test('Should return to Products page when clicking cancel button on Overview pag
 });
 
 test('Should finish checkout and display checkout complete page', async ({ loginPage, productsPage, checkoutPage }) => {
+    const firstName = NameFactory.createFirstName();
+    const lastName = NameFactory.createLastName();
+    const postalCode = PostalCodeFactory.createPostalCode();
+
     await loginPage.login('standard_user', 'secret_sauce');
     await productsPage.getProductAddToCartButton(0).click();
     await productsPage.shoppingCartLink.click();
     await checkoutPage.checkoutButton.click();
-    await checkoutPage.yourInformationFirstNameInput.fill('Test');
-    await checkoutPage.yourInformationLastNameInput.fill('User');
-    await checkoutPage.yourInformationPostalCodeInput.fill('12345');
+    await checkoutPage.yourInformationFirstNameInput.fill(firstName);
+    await checkoutPage.yourInformationLastNameInput.fill(lastName);
+    await checkoutPage.yourInformationPostalCodeInput.fill(postalCode);
     await checkoutPage.yourInformationContinueButton.click();
     await checkoutPage.expectOverviewPage(1);
     await checkoutPage.overviewFinishButton.click();
@@ -180,13 +203,17 @@ test('Should finish checkout and display checkout complete page', async ({ login
 });
 
 test('Should return to products page when clicking back home button on checkout complete page', async ({ loginPage, productsPage, checkoutPage }) => {
+    const firstName = NameFactory.createFirstName();
+    const lastName = NameFactory.createLastName();
+    const postalCode = PostalCodeFactory.createPostalCode();
+
     await loginPage.login('standard_user', 'secret_sauce');
     await productsPage.getProductAddToCartButton(0).click();
     await productsPage.shoppingCartLink.click();
     await checkoutPage.checkoutButton.click();
-    await checkoutPage.yourInformationFirstNameInput.fill('Test');
-    await checkoutPage.yourInformationLastNameInput.fill('User');
-    await checkoutPage.yourInformationPostalCodeInput.fill('12345');
+    await checkoutPage.yourInformationFirstNameInput.fill(firstName);
+    await checkoutPage.yourInformationLastNameInput.fill(lastName);
+    await checkoutPage.yourInformationPostalCodeInput.fill(postalCode);
     await checkoutPage.yourInformationContinueButton.click();
     await checkoutPage.expectOverviewPage(1);
     await checkoutPage.overviewFinishButton.click();
