@@ -47,16 +47,16 @@ test.describe('Checkout flow', () => {
         await checkoutPage.expectProductInfo(0);
     });
 
-    for (let i = 0; i < 6; i++) {
-        test(`Should display information for product ${i + 1} in checkout page`, async ({ productsPage, checkoutPage }) => {
-            await productsPage.getProductAddToCartButton(i).click();
-            await expect(productsPage.shoppingCartBadge).toBeVisible();
-            await expect(productsPage.shoppingCartBadge).toHaveText(`1`);
-            await productsPage.shoppingCartLink.click();
-            await checkoutPage.expectProductInfo(0);
-        });
+test('Should display product information in checkout page after adding to cart', async ({ productsPage, checkoutPage }) => {
+        await productsPage.getProductAddToCartButton(0).click();
+        await expect(productsPage.shoppingCartBadge).toBeVisible();
+        await expect(productsPage.shoppingCartBadge).toHaveText('1');
+        await productsPage.shoppingCartLink.click();
+        await checkoutPage.expectProductInfo(0);
+    });
 
-        test(`Shoud display all the ${i + 1} products in checkout page after adding them to cart`, async ({ productsPage, checkoutPage }) => {
+    for (let i = 0; i < 6; i++) {
+        test(`Should display all the ${i + 1} products in checkout page after adding them to cart`, async ({ productsPage, checkoutPage }) => {
             for (let j = 0; j <= i; j++) {
                 await productsPage.getProductAddToCartButton(j).click();
                 await expect(productsPage.shoppingCartBadge).toBeVisible();
