@@ -94,61 +94,40 @@ test.describe('Products page', () => {
         expect(pricesAsNumbers).toEqual(sortedPrices);
     });
 
-    test('Should change state of add to cart button to remove after clicking it', async ({ productsPage }) => {
-        await productsPage.getProductAddToCartButton(0).click();
-        await expect(productsPage.getProductRemoveButton(0)).toBeVisible();
-    });
-
-    test('Should display shopping cart with zero items when no products are added to cart', async ({ productsPage }) => {
-        await expect(productsPage.shoppingCartBadge).not.toBeVisible();
-    });
-
-    test('Should remove product from cart and update shopping cart badge accordingly', async ({ productsPage }) => {
-        await productsPage.getProductAddToCartButton(0).click();
-        await expect(productsPage.shoppingCartBadge).toBeVisible();
-        await expect(productsPage.shoppingCartBadge).toHaveText('1');
-        await productsPage.getProductRemoveButton(0).click();
-        await expect(productsPage.shoppingCartBadge).not.toBeVisible();
-    });
-
-    for (let i = 0; i < 6; i++) {
-        test(`Should display product name for product ${i + 1}`, async ({ productsPage }) => {
-            await expect(productsPage.getProductItem(i)).toBeVisible();
+    test('Should display all product details for all 6 products', async ({ productsPage }) => {
+        for (let i = 0; i < 6; i++) {
             await expect(productsPage.getProductName(i)).toBeVisible();
-        });
-
-        test(`Should display product image for product ${i + 1}`, async ({ productsPage }) => {
-            await expect(productsPage.getProductItem(i)).toBeVisible();
             await expect(productsPage.getProductImage(i)).toBeVisible();
-        });
-
-        test(`Should display product price for product ${i + 1}`, async ({ productsPage }) => {
-            await expect(productsPage.getProductItem(i)).toBeVisible();
             await expect(productsPage.getProductPrice(i)).toBeVisible();
-        });
-
-        test(`Should display product description for product ${i + 1}`, async ({ productsPage }) => {
-            await expect(productsPage.getProductItem(i)).toBeVisible();
             await expect(productsPage.getProductDescription(i)).toBeVisible();
-        });
-
-        test(`Should display add to cart button for product ${i + 1}`, async ({ productsPage }) => {
-            await expect(productsPage.getProductItem(i)).toBeVisible();
             await expect(productsPage.getProductAddToCartButton(i)).toBeVisible();
-        });
+        }
+    });
 
-        test(`Should display remove button for product ${i + 1} after adding it to cart`, async ({ productsPage }) => {
-            await expect(productsPage.getProductItem(i)).toBeVisible();
+    test('Should toggle add to cart and remove buttons for each product', async ({ productsPage }) => {
+        for (let i = 0; i < 6; i++) {
             await productsPage.getProductAddToCartButton(i).click();
             await expect(productsPage.getProductRemoveButton(i)).toBeVisible();
-        });
+            await productsPage.getProductRemoveButton(i).click();
+            await expect(productsPage.getProductAddToCartButton(i)).toBeVisible();
+        }
+    });
 
-        test(`Should display shopping cart with ${i + 1} items`, async ({ productsPage }) => {
-            for (let j = 0; j <= i; j++) {
-                await productsPage.getProductAddToCartButton(j).click();
-                await expect(productsPage.shoppingCartBadge).toBeVisible();
-                await expect(productsPage.shoppingCartBadge).toHaveText(`${j + 1}`);
+    test('Should update shopping cart badge correctly when adding and removing products', async ({ productsPage }) => {
+        await expect(productsPage.shoppingCartBadge).not.toBeVisible();
+
+        for (let i = 1; i <= 6; i++) {
+            await productsPage.getProductAddToCartButton(i - 1).click();
+            await expect(productsPage.shoppingCartBadge).toHaveText(`${i}`);
+        }
+
+        for (let i = 5; i >= 0; i--) {
+            await productsPage.getProductRemoveButton(i).click();
+            if (i === 0) {
+                await expect(productsPage.shoppingCartBadge).not.toBeVisible();
+            } else {
+                await expect(productsPage.shoppingCartBadge).toHaveText(`${i}`);
             }
-        });
-    }
+        }
+    });
 });
