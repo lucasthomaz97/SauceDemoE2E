@@ -31,7 +31,7 @@ test('Should logout successfully', async ({ loginPage, productsPage }) => {
     await expect(productsPage.productsHeading).toBeVisible();
     await productsPage.menuButton.click();
     await productsPage.logoutButton.click();
-    await expect(loginPage.headingTitle).toBeVisible();
+    await loginPage.expectLoginPage();
 });
 
 test('Should Display close menu button when opening menu', async ({ loginPage, productsPage }) => {
@@ -45,7 +45,7 @@ test('Should close menu when clicking the close menu button', async ({ loginPage
     await productsPage.menuButton.click();
     await expect(productsPage.logoutButton).toBeVisible();
     await productsPage.menuCloseButton.click();
-    await expect(loginPage.headingTitle).toBeVisible();
+    await productsPage.expectProductsPage();
 });
 
 test('Should display shopping cart link on products page', async ({ loginPage, productsPage }) => {

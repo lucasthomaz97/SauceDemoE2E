@@ -54,7 +54,7 @@ test('Should display error for invalid credentials', async ({ loginPage }) => {
 
 test('Should login successfully with valid credentials', async ({ loginPage, productsPage }) => {
     await loginPage.login('standard_user', 'secret_sauce');
-    await expect(productsPage.productsHeading).toBeVisible();
+    await productsPage.expectProductsPage();
 });
 
 test('Should close error message when clicking close button', async ({ loginPage }) => {

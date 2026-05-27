@@ -1,4 +1,4 @@
-import { Page, Locator } from '@playwright/test';
+import { Page, Locator, expect } from '@playwright/test';
 
 export class LoginPage {
     private page: Page;
@@ -44,12 +44,19 @@ export class LoginPage {
     }
 
     async goto(): Promise<void> {
-        await this.page.goto('https://www.saucedemo.com/');
+        await this.page.goto('/');
     }
 
     async login(username: string, password: string): Promise<void> {
         await this.usernameInput.fill(username);
         await this.passwordInput.fill(password);
         await this.loginButton.click();
+    }
+
+    async expectLoginPage(): Promise<void> {
+        await expect(this.headingTitle).toBeVisible();
+        await expect(this.usernameInput).toBeVisible();
+        await expect(this.passwordInput).toBeVisible();
+        await expect(this.loginButton).toBeVisible();
     }
 }

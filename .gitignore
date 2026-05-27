@@ -10,3 +10,6 @@ blob-report/
 
 # Playwright
 /playwright/.auth/
+
+# OpenCode config
+.opencode/
