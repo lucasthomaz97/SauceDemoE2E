@@ -1,5 +1,7 @@
-import { test as base } from '@playwright/test';
+import { test as base, expect } from '@playwright/test';
 import { LoginPage } from '../page_objects/login_page';
+
+export { expect };
 import { ProductsPage } from '../page_objects/products_page';
 import { CheckoutPage } from '../page_objects/checkout_page';
 import { ItemPage } from '../page_objects/inventory_item_page';

@@ -1,5 +1,4 @@
-import { expect } from '@playwright/test';
-import { test } from '../fixtures/index';
+import { test, expect } from '../fixtures/index';
 
 const emptyFieldLoginCases = [
     { username: '', password: '', errorType: 'usernameRequired' as const, description: 'both fields empty' },

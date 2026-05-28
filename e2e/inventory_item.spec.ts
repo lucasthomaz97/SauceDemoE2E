@@ -1,5 +1,4 @@
-import { expect } from '@playwright/test';
-import { test } from '../fixtures/index';
+import { test, expect } from '../fixtures/index';
 
 test.describe('@inventory_item_consistency', () => {
     test.beforeEach(async ({ loginPage }) => {
