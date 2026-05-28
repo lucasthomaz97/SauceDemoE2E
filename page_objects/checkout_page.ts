@@ -138,6 +138,14 @@ export class CheckoutPage {
         await expect(this.getProductPrice(i)).toBeVisible();
     }
 
+    async expectCheckoutPage() {
+        await expect(this.checkoutHeading).toHaveText('Your Cart');
+        await expect(this.quantityLabel).toBeVisible();
+        await expect(this.descriptionLabel).toBeVisible();
+        await expect(this.continueShoppingButton).toBeVisible();
+        await expect(this.checkoutButton).toBeVisible();
+    }
+
     async expectYourInformationPage() {
         await expect(this.checkoutHeading).toHaveText('Checkout: Your Information');
         await expect(this.yourInformationFirstNameInput).toBeVisible();
