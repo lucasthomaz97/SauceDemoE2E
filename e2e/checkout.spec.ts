@@ -1,7 +1,7 @@
 import { expect } from '@playwright/test';
 import { test } from '../fixtures/index';
 
-test.describe('Checkout flow', () => {
+test.describe('@checkout', () => {
     test.beforeEach(async ({ loginPage }) => {
         await loginPage.login('standard_user', 'secret_sauce');
     });
