@@ -25,7 +25,7 @@ jobs:
         key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
 
     - name: Install Playwright Browsers
-      run: npx playwright install chromium firefox webkit
+      run: npx playwright install chromium firefox webkit --with-deps
 
     - name: Run Playwright tests
       run: npx playwright test
