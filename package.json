@@ -7,6 +7,8 @@
     "test:headed": "npx playwright test --headed",
     "test:debug": "npx playwright test --debug",
     "test:chromium": "npx playwright test --project chromium",
+    "test:firefox": "npx playwright test --project firefox",
+    "test:webkit": "npx playwright test --project webkit",
     "test:all": "npx playwright test --project chromium --project firefox --project webkit"
   },
   "repository": {
@@ -29,7 +31,10 @@
   "homepage": "https://github.com/lucasthomaz97/SauceDemoE2E#readme",
   "devDependencies": {
     "@faker-js/faker": "^10.4.0",
-    "@playwright/test": "^1.59.1",
+    "@playwright/test": "^1.60.0",
     "@types/node": "^25.6.2"
+  },
+  "dependencies": {
+    "playwright": "1.60"
   }
 }
