@@ -113,8 +113,26 @@ npm run test:debug
 # Run only on Chromium
 npm run test:chromium
 
+# Run only on Firefox
+npm run test:firefox
+
+# Run only on WebKit
+npm run test:webkit
+
 # Run on all three browsers explicitly
 npm run test:all
+
+# Run specific test tags (grep)
+npx playwright test --grep "@products"
+npx playwright test --grep "@checkout_consistency"
+npx playwright test --grep "@login"
+npx playwright test --grep "@inventory_item_consistency"
+npx playwright test --grep "@inventory_item_components"
+npx playwright test --grep "@checkout_functionality"
+
+# Run specific tag on specific browser
+npx playwright test --project chromium --grep "@products"
+npx playwright test --project firefox --grep "@checkout_consistency"
 ```
 
 ### CI/CD
@@ -226,8 +244,26 @@ npm run test:debug
 # Executar apenas no Chromium
 npm run test:chromium
 
+# Executar apenas no Firefox
+npm run test:firefox
+
+# Executar apenas no WebKit
+npm run test:webkit
+
 # Executar nos três navegadores explicitamente
 npm run test:all
+
+# Executar tags específicas (grep)
+npx playwright test --grep "@products"
+npx playwright test --grep "@checkout_consistency"
+npx playwright test --grep "@login"
+npx playwright test --grep "@inventory_item_consistency"
+npx playwright test --grep "@inventory_item_components"
+npx playwright test --grep "@checkout_functionality"
+
+# Executar tag específica em navegador específico
+npx playwright test --project chromium --grep "@products"
+npx playwright test --project firefox --grep "@checkout_consistency"
 ```
 
 ### CI/CD

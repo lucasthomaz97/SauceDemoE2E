@@ -15,10 +15,10 @@ test.describe('@products', () => {
 
     test('Should Display Menu options when clicking menu button', async ({ productsPage }) => {
         await productsPage.menuButton.click();
-        await expect(productsPage.menuCloseButton).toBeVisible();
         await expect(productsPage.allItemsButton).toBeVisible();
         await expect(productsPage.aboutButton).toBeVisible();
         await expect(productsPage.logoutButton).toBeVisible();
+        await expect(productsPage.menuCloseButton).toBeVisible();
     });
 
     test('Should Display logout button when opening menu', async ({ productsPage }) => {
