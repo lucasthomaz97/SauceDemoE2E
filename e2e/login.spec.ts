@@ -19,17 +19,8 @@ test.describe('@login', () => {
         });
     });
 
-    test('Should display login page title', async ({ loginPage }) => {
-        await expect(loginPage.headingTitle).toBeVisible();
-    });
-
-    test('Should display username and password input fields', async ({ loginPage }) => {
-        await expect(loginPage.usernameInput).toBeVisible();
-        await expect(loginPage.passwordInput).toBeVisible();
-    });
-
-    test('Should display login button', async ({ loginPage }) => {
-        await expect(loginPage.loginButton).toBeVisible();
+    test('Should display login page', async ({ loginPage }) => {
+        await loginPage.expectLoginPage();
     });
 
     test('Should display locked out error for locked user', async ({ loginPage }) => {

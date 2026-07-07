@@ -5,12 +5,8 @@ test.describe('@products', () => {
         await loginPage.login('standard_user', 'secret_sauce');
     });
 
-    test('Should display products page title after successful login', async ({ productsPage }) => {
+    test('Should display products page after successful login', async ({ productsPage }) => {
         await productsPage.expectProductsPage();
-    });
-
-    test('Should display menu button on products page', async ({ productsPage }) => {
-        await expect(productsPage.menuButton).toBeVisible();
     });
 
     test('Should Display Menu options when clicking menu button', async ({ productsPage }) => {
@@ -43,14 +39,6 @@ test.describe('@products', () => {
         await expect(productsPage.logoutButton).toBeVisible();
         await productsPage.menuCloseButton.click();
         await productsPage.expectProductsPage();
-    });
-
-    test('Should display shopping cart link on products page', async ({ productsPage }) => {
-        await expect(productsPage.shoppingCartLink).toBeVisible();
-    });
-
-    test('Should display product sort select on products page', async ({ productsPage }) => {
-        await expect(productsPage.productSortSelect).toBeVisible();
     });
 
     test('Should display six products on products page', async ({ productsPage }) => {
