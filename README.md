@@ -29,9 +29,9 @@ End-to-end (E2E) automated tests for [SauceDemo](https://www.saucedemo.com), a d
 ```
 SauceDemoE2E/
 ├── e2e/                          # Test specifications
-│   ├── login.spec.ts             # Login flow tests (12)
-│   ├── products.spec.ts          # Products page tests (17)
-│   ├── checkout.spec.ts          # Checkout flow tests (27)
+│   ├── login.spec.ts             # Login flow tests (10)
+│   ├── products.spec.ts          # Products page tests (19)
+│   ├── checkout.spec.ts          # Checkout flow tests (28)
 │   └── inventory_item.spec.ts    # Inventory item detail tests (9)
 ├── page_objects/                 # Page Object Model
 │   ├── login_page.ts
@@ -47,11 +47,11 @@ SauceDemoE2E/
     └── playwright.yml            # CI/CD pipeline
 ```
 
-**Total: 65 tests per browser (195 across Chromium, Firefox, WebKit)**
+**Total: 66 tests per browser (198 across Chromium, Firefox, WebKit)**
 
 ### Test Coverage
 
-**Login Flow (`login.spec.ts`) — 12 tests**
+**Login Flow (`login.spec.ts`) — 10 tests**
 - Form field presence and visibility
 - Empty field validation (username, password, both)
 - Invalid credentials handling
@@ -59,14 +59,14 @@ SauceDemoE2E/
 - Successful login
 - Error message dismissal
 
-**Products Page (`products.spec.ts`) — 17 tests**
+**Products Page (`products.spec.ts`) — 19 tests**
 - Navigation after successful login
 - Side menu functionality (open, close, logout)
 - Product list display (6 items)
 - Product sorting: A-Z, Z-A, Price Low-High, Price High-Low
 - Add/Remove toggles with cart badge updates
 
-**Checkout Flow (`checkout.spec.ts`) — 27 tests**
+**Checkout Flow (`checkout.spec.ts`) — 28 tests**
 - Continue shopping returns to products
 - Product info in cart (name, description, price, quantity)
 - Cart persistence after navigation
@@ -137,7 +137,7 @@ npx playwright test --project firefox --grep "@checkout_consistency"
 
 ### CI/CD
 
-Tests run automatically on every push and pull request to `main`/`master` branches. The pipeline runs all 65 tests across Chromium, Firefox, and WebKit with 2 retries on failure. Reports and video artifacts are available for 30 days as GitHub Actions artifacts.
+Tests run automatically on every push and pull request to `main`/`master` branches. The pipeline runs all 66 tests across Chromium, Firefox, and WebKit with 2 retries on failure. Reports and video artifacts are available for 30 days as GitHub Actions artifacts.
 
 ---
 
@@ -160,9 +160,9 @@ Testes automatizados end-to-end (E2E) para o [SauceDemo](https://www.saucedemo.c
 ```
 SauceDemoE2E/
 ├── e2e/                          # Especificações de teste
-│   ├── login.spec.ts             # Testes de login (12)
-│   ├── products.spec.ts          # Testes de produtos (17)
-│   ├── checkout.spec.ts          # Testes de checkout (27)
+│   ├── login.spec.ts             # Testes de login (10)
+│   ├── products.spec.ts          # Testes de produtos (19)
+│   ├── checkout.spec.ts          # Testes de checkout (28)
 │   └── inventory_item.spec.ts    # Testes de detalhes do item (9)
 ├── page_objects/                 # Page Object Model
 │   ├── login_page.ts
@@ -178,11 +178,11 @@ SauceDemoE2E/
     └── playwright.yml            # Pipeline de CI/CD
 ```
 
-**Total: 65 testes por browser (195 entre Chromium, Firefox, WebKit)**
+**Total: 66 testes por browser (198 entre Chromium, Firefox, WebKit)**
 
 ### Cobertura de Testes
 
-**Fluxo de Login (`login.spec.ts`) — 12 testes**
+**Fluxo de Login (`login.spec.ts`) — 10 testes**
 - Presença e visibilidade dos campos do formulário
 - Validação de campos vazios (username, password, ambos)
 - Tratamento de credenciais inválidas
@@ -190,14 +190,14 @@ SauceDemoE2E/
 - Login com sucesso
 - Dispensação de mensagens de erro
 
-**Página de Produtos (`products.spec.ts`) — 17 testes**
+**Página de Produtos (`products.spec.ts`) — 19 testes**
 - Navegação após login com sucesso
 - Funcionalidade do menu lateral (abrir, fechar, logout)
 - Exibição da lista de produtos (6 itens)
 - Ordenação de produtos: A-Z, Z-A, Preço Menor-Maior, Preço Maior-Menor
 - Alternância Adicionar/Remover com atualização do badge do carrinho
 
-**Fluxo de Checkout (`checkout.spec.ts`) — 27 testes**
+**Fluxo de Checkout (`checkout.spec.ts`) — 28 testes**
 - Botão "Continue Shopping" retorna aos produtos
 - Informações do produto no carrinho (nome, descrição, preço, quantidade)
 - Persistência do carrinho após navegação
@@ -268,4 +268,4 @@ npx playwright test --project firefox --grep "@checkout_consistency"
 
 ### CI/CD
 
-Os testes são executados automaticamente a cada push e pull request para as branches `main`/`master`. O pipeline executa todos os 65 testes nos navegadores Chromium, Firefox e WebKit com 2 retries em caso de falha. Relatórios e artefatos de vídeo ficam disponíveis por 30 dias como artefatos do GitHub Actions.
+Os testes são executados automaticamente a cada push e pull request para as branches `main`/`master`. O pipeline executa todos os 66 testes nos navegadores Chromium, Firefox e WebKit com 2 retries em caso de falha. Relatórios e artefatos de vídeo ficam disponíveis por 30 dias como artefatos do GitHub Actions.
