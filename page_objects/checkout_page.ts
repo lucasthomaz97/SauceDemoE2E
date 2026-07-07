@@ -179,4 +179,10 @@ export class CheckoutPage {
         await expect(this.checkoutCompleteText).toHaveText('Your order has been dispatched, and will arrive just as fast as the pony can get there!');
         await expect(this.checkoutCompleteBackHomeButton).toBeVisible();
     }
+
+    async fillYourInformationForm(firstName: string, lastName: string, postalCode: string) {
+        await this.yourInformationFirstNameInput.fill(firstName);
+        await this.yourInformationLastNameInput.fill(lastName);
+        await this.yourInformationPostalCodeInput.fill(postalCode);
+    }
 }

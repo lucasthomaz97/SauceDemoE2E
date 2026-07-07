@@ -96,58 +96,58 @@ test.describe('@checkout_functionality', () => {
         await expect(checkoutPage.yourInformationPostalCodeInput).toHaveValue('');
     });
 
-    test('Should return to checkout page when clicking cancel button on Your Information page', async ({ productsPage, checkoutPage }) => {
+    test('Should return to checkout page when clicking cancel button on Your Information page', async ({ checkoutPage }) => {
         await checkoutPage.checkoutButton.click();
         await checkoutPage.yourInformationCancelButton.click();
         await expect(checkoutPage.checkoutHeading).toBeVisible();
     });
 
-    test('Should display error message when trying to continue with empty First Name on Your Information page', async ({ productsPage, checkoutPage }) => {
+    test('Should display error message when trying to continue with all empty inputs on Your Information page', async ({ checkoutPage }) => {
         await checkoutPage.checkoutButton.click();
         await checkoutPage.yourInformationContinueButton.click();
         await expect(checkoutPage.yourInformationErrorMessage).toHaveText('Error: First Name is required');
     });
 
-    test('Should display error message when trying to continue with empty Last Name on Your Information page', async ({ productsPage, checkoutPage, checkoutData }) => {
+    test('Should display error message when trying to continue with empty First Name on Your Information page', async ({ checkoutPage, checkoutData }) => {
         await checkoutPage.checkoutButton.click();
-        await checkoutPage.yourInformationFirstNameInput.fill(checkoutData.firstName);
+        await checkoutPage.fillYourInformationForm('', checkoutData.lastName, checkoutData.postalCode);
+        await checkoutPage.yourInformationContinueButton.click();
+        await expect(checkoutPage.yourInformationErrorMessage).toHaveText('Error: First Name is required');
+    });
+
+    test('Should display error message when trying to continue with empty Last Name on Your Information page', async ({checkoutPage, checkoutData }) => {
+        await checkoutPage.checkoutButton.click();
+        await checkoutPage.fillYourInformationForm(checkoutData.firstName, '', checkoutData.postalCode);
         await checkoutPage.yourInformationContinueButton.click();
         await expect(checkoutPage.yourInformationErrorMessage).toHaveText('Error: Last Name is required');
     });
 
-    test('Should display error message when trying to continue with empty Postal Code on Your Information page', async ({ productsPage, checkoutPage, checkoutData }) => {
+    test('Should display error message when trying to continue with empty Postal Code on Your Information page', async ({checkoutPage, checkoutData }) => {
         await checkoutPage.checkoutButton.click();
-        await checkoutPage.yourInformationFirstNameInput.fill(checkoutData.firstName);
-        await checkoutPage.yourInformationLastNameInput.fill(checkoutData.lastName);
+        await checkoutPage.fillYourInformationForm(checkoutData.firstName, checkoutData.lastName, '');
         await checkoutPage.yourInformationContinueButton.click();
         await expect(checkoutPage.yourInformationErrorMessage).toHaveText('Error: Postal Code is required');
     });
 
-    test('Should fill Your Information form and continue to Overview page', async ({ productsPage, checkoutPage, checkoutData }) => {
+    test('Should fill Your Information form and continue to Overview page', async ({checkoutPage, checkoutData }) => {
         await checkoutPage.checkoutButton.click();
-        await checkoutPage.yourInformationFirstNameInput.fill(checkoutData.firstName);
-        await checkoutPage.yourInformationLastNameInput.fill(checkoutData.lastName);
-        await checkoutPage.yourInformationPostalCodeInput.fill(checkoutData.postalCode);
+        await checkoutPage.fillYourInformationForm(checkoutData.firstName, checkoutData.lastName, checkoutData.postalCode);
         await checkoutPage.yourInformationContinueButton.click();
         await checkoutPage.expectOverviewPage(1);
     });
 
     test('Should return to Products page when clicking cancel button on Overview page', async ({ productsPage, checkoutPage, checkoutData }) => {
         await checkoutPage.checkoutButton.click();
-        await checkoutPage.yourInformationFirstNameInput.fill(checkoutData.firstName);
-        await checkoutPage.yourInformationLastNameInput.fill(checkoutData.lastName);
-        await checkoutPage.yourInformationPostalCodeInput.fill(checkoutData.postalCode);
+        await checkoutPage.fillYourInformationForm(checkoutData.firstName, checkoutData.lastName, checkoutData.postalCode);
         await checkoutPage.yourInformationContinueButton.click();
         await checkoutPage.expectOverviewPage(1);
         await checkoutPage.overviewCancelButton.click();
         await productsPage.expectProductsPage();
     });
 
-    test('Should finish checkout and display checkout complete page', async ({ productsPage, checkoutPage, checkoutData }) => {
+    test('Should finish checkout and display checkout complete page', async ({checkoutPage, checkoutData }) => {
         await checkoutPage.checkoutButton.click();
-        await checkoutPage.yourInformationFirstNameInput.fill(checkoutData.firstName);
-        await checkoutPage.yourInformationLastNameInput.fill(checkoutData.lastName);
-        await checkoutPage.yourInformationPostalCodeInput.fill(checkoutData.postalCode);
+        await checkoutPage.fillYourInformationForm(checkoutData.firstName, checkoutData.lastName, checkoutData.postalCode);
         await checkoutPage.yourInformationContinueButton.click();
         await checkoutPage.expectOverviewPage(1);
         await checkoutPage.overviewFinishButton.click();
@@ -156,9 +156,7 @@ test.describe('@checkout_functionality', () => {
 
     test('Should return to products page when clicking back home button on checkout complete page', async ({ productsPage, checkoutPage, checkoutData }) => {
         await checkoutPage.checkoutButton.click();
-        await checkoutPage.yourInformationFirstNameInput.fill(checkoutData.firstName);
-        await checkoutPage.yourInformationLastNameInput.fill(checkoutData.lastName);
-        await checkoutPage.yourInformationPostalCodeInput.fill(checkoutData.postalCode);
+        await checkoutPage.fillYourInformationForm(checkoutData.firstName, checkoutData.lastName, checkoutData.postalCode);
         await checkoutPage.yourInformationContinueButton.click();
         await checkoutPage.expectOverviewPage(1);
         await checkoutPage.overviewFinishButton.click();
