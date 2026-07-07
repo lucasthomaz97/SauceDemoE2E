@@ -81,16 +81,6 @@ test.describe('@products', () => {
         expect(pricesAsNumbers).toEqual(sortedPrices);
     });
 
-    test('Should display all product details for all 6 products', async ({ productsPage }) => {
-        for (let i = 0; i < 6; i++) {
-            await expect(productsPage.getProductName(i)).toBeVisible();
-            await expect(productsPage.getProductImage(i)).toBeVisible();
-            await expect(productsPage.getProductPrice(i)).toBeVisible();
-            await expect(productsPage.getProductDescription(i)).toBeVisible();
-            await expect(productsPage.getProductAddToCartButton(i)).toBeVisible();
-        }
-    });
-
     test('Should toggle add to cart and remove buttons for each product', async ({ productsPage }) => {
         for (let i = 0; i < 6; i++) {
             await productsPage.getProductAddToCartButton(i).click();
@@ -117,4 +107,14 @@ test.describe('@products', () => {
             }
         }
     });
+
+    for (let i = 0; i < 6; i++) {
+        test(`Should display product information for product ${i + 1}`, async ({ productsPage }) => {
+            await expect(productsPage.getProductName(i)).toBeVisible();
+            await expect(productsPage.getProductImage(i)).toBeVisible();
+            await expect(productsPage.getProductPrice(i)).toBeVisible();
+            await expect(productsPage.getProductDescription(i)).toBeVisible();
+            await expect(productsPage.getProductAddToCartButton(i)).toBeVisible();
+        });
+    }
 });
